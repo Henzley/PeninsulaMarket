@@ -3,183 +3,988 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Marketplace - Seller Studio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>CampusMarket - Seller Studio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .navbar { background: #fff; border-bottom: 1px solid var(--slate-200); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .nav-brand { font-size: 1.3rem; font-weight: 800; }
-        .nav-brand span { color: var(--primary); }
-        .dashboard-layout { max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; display: grid; grid-template-columns: 380px 1fr; gap: 2rem; }
-        .listing-form-card { background: #fff; border: 1px solid var(--slate-200); border-radius: 16px; padding: 1.5rem; }
-        .btn-outline { border: 1px solid var(--slate-200); padding: 8px 14px; border-radius: 8px; background: transparent; cursor: pointer; font-weight: 600; }
-        .status-badge { font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; }
+        :root {
+          --primary-blue: #1d4ed8;
+          --primary-hover: #1e40af;
+          --primary-green: #059669;
+          --whatsapp-green: #25d366;
+          --slate-900: #0f172a;
+          --slate-700: #334155;
+          --slate-500: #64748b;
+          --slate-400: #94a3b8;
+          --slate-200: #e2e8f0;
+          --slate-100: #f1f5f9;
+          --slate-50:  #f8fafc;
+          --white: #ffffff;
+          --page-bg: #f4f7fb;
+          --card-radius: 20px;
+          --shadow-soft: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
+        }
+
+        body {
+          background-color: var(--page-bg);
+          color: var(--slate-900);
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        /* Navbar matching the exact style */
+        .seller-nav {
+          background: var(--white);
+          border-bottom: 1px solid var(--slate-200);
+          padding: 0.95rem 2.5rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          position: sticky;
+          top: 0;
+          z-index: 50;
+        }
+
+        .brand-logo {
+          font-size: 1.35rem;
+          font-weight: 800;
+          color: var(--slate-900);
+          text-decoration: none;
+          letter-spacing: -0.02em;
+        }
+
+        .brand-logo span {
+          color: var(--primary-blue);
+        }
+
+        .seller-badge-tag {
+          background: #eff6ff;
+          color: var(--primary-blue);
+          font-size: 0.72rem;
+          font-weight: 700;
+          padding: 4px 10px;
+          border-radius: 9999px;
+          margin-left: 8px;
+          border: 1px solid #bfdbfe;
+        }
+
+        .nav-user-controls {
+          display: flex;
+          align-items: center;
+          gap: 1.25rem;
+        }
+
+        .user-greeting {
+          font-size: 0.88rem;
+          font-weight: 600;
+          color: var(--slate-700);
+        }
+
+        .btn-outline-sm {
+          border: 1.5px solid var(--slate-200);
+          padding: 7px 14px;
+          border-radius: 8px;
+          background: var(--white);
+          color: var(--slate-700);
+          text-decoration: none;
+          font-size: 0.85rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.15s;
+        }
+
+        .btn-outline-sm:hover {
+          border-color: var(--slate-400);
+          color: var(--slate-900);
+        }
+
+        /* Main Studio Dashboard Layout */
+        .studio-container {
+          max-width: 1260px;
+          margin: 2rem auto;
+          padding: 0 1.5rem;
+          width: 100%;
+          flex: 1;
+          display: grid;
+          grid-template-columns: 1.35fr 1fr;
+          gap: 2rem;
+          align-items: start;
+        }
+
+        @media (max-width: 980px) {
+          .studio-container {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        /* Card Panels */
+        .studio-card {
+          background: var(--white);
+          border: 1px solid var(--slate-200);
+          border-radius: var(--card-radius);
+          padding: 2.25rem;
+          box-shadow: var(--shadow-soft);
+        }
+
+        .card-title-group {
+          margin-bottom: 1.75rem;
+          border-bottom: 1px solid var(--slate-100);
+          padding-bottom: 1.25rem;
+        }
+
+        .card-title-group h2 {
+          font-size: 1.45rem;
+          font-weight: 800;
+          color: var(--slate-900);
+          letter-spacing: -0.02em;
+        }
+
+        .card-title-group p {
+          font-size: 0.85rem;
+          color: var(--slate-500);
+          margin-top: 0.25rem;
+        }
+
+        /* Form Fields Structure */
+        .form-grid-2 {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+        }
+
+        .form-group {
+          margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+          display: block;
+          font-size: 0.82rem;
+          font-weight: 700;
+          color: var(--slate-700);
+          margin-bottom: 0.45rem;
+        }
+
+        .input-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+          width: 100%;
+        }
+
+        .input-icon {
+          position: absolute;
+          left: 14px;
+          color: var(--slate-400);
+          font-size: 0.92rem;
+          pointer-events: none;
+        }
+
+        .input-wrapper input,
+        .input-wrapper select,
+        .input-wrapper textarea {
+          width: 100%;
+          border: 1.5px solid var(--slate-200);
+          border-radius: 10px;
+          font-size: 0.88rem;
+          color: var(--slate-900);
+          background: var(--white);
+          outline: none;
+          transition: border-color 0.15s, box-shadow 0.15s;
+          font-family: inherit;
+        }
+
+        .input-wrapper input,
+        .input-wrapper select {
+          height: 44px;
+          padding: 0 14px 0 42px;
+        }
+
+        .input-wrapper textarea {
+          padding: 12px 14px 12px 42px;
+          resize: vertical;
+          min-height: 85px;
+        }
+
+        .input-wrapper select {
+          appearance: none;
+          cursor: pointer;
+        }
+
+        .select-arrow {
+          position: absolute;
+          right: 14px;
+          color: var(--slate-400);
+          pointer-events: none;
+          font-size: 0.8rem;
+        }
+
+        .input-wrapper input:focus,
+        .input-wrapper select:focus,
+        .input-wrapper textarea:focus {
+          border-color: var(--primary-blue);
+          box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
+        }
+
+        /* Option Pills / Chips for Fulfillment Options */
+        .checkbox-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.75rem;
+          margin-top: 0.25rem;
+        }
+
+        .checkbox-pill {
+          border: 1.5px solid var(--slate-200);
+          border-radius: 10px;
+          padding: 10px 14px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          transition: all 0.15s;
+          background: var(--slate-50);
+        }
+
+        .checkbox-pill:hover {
+          border-color: var(--slate-300);
+        }
+
+        .checkbox-pill input[type="checkbox"] {
+          accent-color: var(--primary-blue);
+          width: 16px;
+          height: 16px;
+          cursor: pointer;
+        }
+
+        .checkbox-pill-text {
+          font-size: 0.82rem;
+          font-weight: 600;
+          color: var(--slate-700);
+        }
+
+        /* Drag and Drop Image Upload Zone */
+        .upload-zone {
+          border: 2px dashed var(--slate-300);
+          border-radius: 12px;
+          padding: 1.75rem 1.5rem;
+          text-align: center;
+          background: var(--slate-50);
+          cursor: pointer;
+          transition: all 0.15s;
+          position: relative;
+        }
+
+        .upload-zone:hover, .upload-zone.dragover {
+          border-color: var(--primary-blue);
+          background: #eff6ff;
+        }
+
+        .upload-zone i {
+          font-size: 2rem;
+          color: var(--primary-blue);
+          margin-bottom: 0.5rem;
+        }
+
+        .upload-zone h4 {
+          font-size: 0.9rem;
+          font-weight: 700;
+          color: var(--slate-900);
+          margin-bottom: 0.25rem;
+        }
+
+        .upload-zone p {
+          font-size: 0.75rem;
+          color: var(--slate-500);
+        }
+
+        .upload-zone input[type="file"] {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          cursor: pointer;
+          width: 100%;
+          height: 100%;
+        }
+
+        /* Thumbnail Previews Strip */
+        .preview-strip {
+          display: flex;
+          gap: 10px;
+          margin-top: 0.75rem;
+          flex-wrap: wrap;
+        }
+
+        .thumb-box {
+          width: 70px;
+          height: 70px;
+          border-radius: 8px;
+          border: 1px solid var(--slate-200);
+          overflow: hidden;
+          position: relative;
+        }
+
+        .thumb-box img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .thumb-remove-btn {
+          position: absolute;
+          top: 2px;
+          right: 2px;
+          background: rgba(15, 23, 42, 0.75);
+          color: var(--white);
+          border: none;
+          border-radius: 50%;
+          width: 18px;
+          height: 18px;
+          font-size: 0.65rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+
+        /* WhatsApp Direct Preview Box */
+        .wa-preview-card {
+          background: #f0fdf4;
+          border: 1px solid #bbf7d0;
+          border-radius: 12px;
+          padding: 1rem 1.25rem;
+          margin-bottom: 1.5rem;
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+        }
+
+        .wa-icon-large {
+          color: var(--whatsapp-green);
+          font-size: 1.8rem;
+          flex-shrink: 0;
+          margin-top: 2px;
+        }
+
+        .wa-preview-text h4 {
+          font-size: 0.88rem;
+          font-weight: 700;
+          color: #166534;
+          margin-bottom: 0.2rem;
+        }
+
+        .wa-preview-text p {
+          font-size: 0.78rem;
+          color: #15803d;
+          line-height: 1.4;
+        }
+
+        .wa-preview-link {
+          font-family: monospace;
+          font-size: 0.74rem;
+          color: #047857;
+          word-break: break-all;
+          margin-top: 4px;
+          display: block;
+          background: rgba(255, 255, 255, 0.6);
+          padding: 4px 8px;
+          border-radius: 6px;
+        }
+
+        /* Main Submit Button */
+        .btn-submit-listing {
+          width: 100%;
+          height: 48px;
+          background: var(--primary-blue);
+          color: var(--white);
+          border: none;
+          border-radius: 10px;
+          font-size: 0.95rem;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          cursor: pointer;
+          box-shadow: 0 4px 14px rgba(29, 78, 216, 0.2);
+          transition: background 0.15s, transform 0.1s;
+        }
+
+        .btn-submit-listing:hover {
+          background: var(--primary-hover);
+        }
+
+        .btn-submit-listing:active {
+          transform: translateY(1px);
+        }
+
+        /* Inventory Sidebar & Stats */
+        .stats-row {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.75rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .stat-chip {
+          background: var(--slate-50);
+          border: 1px solid var(--slate-200);
+          border-radius: 12px;
+          padding: 0.85rem;
+          text-align: center;
+        }
+
+        .stat-num {
+          font-size: 1.35rem;
+          font-weight: 800;
+          color: var(--slate-900);
+        }
+
+        .stat-lbl {
+          font-size: 0.7rem;
+          font-weight: 700;
+          color: var(--slate-500);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        /* Listing Feed Rows */
+        .inventory-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.85rem;
+          max-height: 580px;
+          overflow-y: auto;
+          padding-right: 4px;
+        }
+
+        .inventory-item {
+          background: var(--white);
+          border: 1.5px solid var(--slate-200);
+          border-radius: 14px;
+          padding: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          transition: border-color 0.15s;
+        }
+
+        .inventory-item:hover {
+          border-color: var(--slate-300);
+        }
+
+        .item-media {
+          width: 52px;
+          height: 52px;
+          border-radius: 10px;
+          background: var(--slate-100);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          flex-shrink: 0;
+        }
+
+        .item-media img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .item-details {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .item-details h4 {
+          font-size: 0.92rem;
+          font-weight: 700;
+          color: var(--slate-900);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .item-meta {
+          font-size: 0.78rem;
+          color: var(--slate-500);
+          margin-top: 2px;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+        .badge-status {
+          font-size: 0.7rem;
+          font-weight: 800;
+          padding: 4px 8px;
+          border-radius: 6px;
+          letter-spacing: 0.04em;
+        }
+
         .status-PENDING { background: #fef3c7; color: #92400e; }
         .status-APPROVED { background: #d1fae5; color: #065f46; }
         .status-REJECTED { background: #fee2e2; color: #991b1b; }
-        .item-row { background: #fff; border: 1px solid var(--slate-200); border-radius: 12px; padding: 1rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+
+        .btn-wa-test {
+          color: var(--whatsapp-green);
+          font-size: 1.1rem;
+          text-decoration: none;
+          padding: 6px;
+          border-radius: 8px;
+          transition: background 0.15s;
+        }
+
+        .btn-wa-test:hover {
+          background: #f0fdf4;
+        }
+
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
-<nav class="navbar">
-    <div class="nav-brand">Campus<span>Market</span> <span style="font-size: 0.8rem; color: var(--slate-500); font-weight: 600;">| Seller Studio</span></div>
-    <div>
-        <a href="marketplace.html" class="btn-outline" style="text-decoration: none; margin-right: 8px;">View Marketplace</a>
-        <button onclick="logout()" class="btn-outline">Log Out</button>
+
+<!-- Top Navigation Bar matching the Reference Style -->
+<header class="seller-nav">
+    <div style="display: flex; align-items: center;">
+        <a href="index.html" class="brand-logo">Vendor<span>Link</span></a>
+        <span class="seller-badge-tag"><i class="fa-solid fa-store"></i> Seller Studio</span>
     </div>
-</nav>
 
-<div class="dashboard-layout">
-    <!-- Left: Add New Listing -->
-    <div class="listing-form-card">
-        <h3 style="margin-bottom: 0.25rem;">Create a Listing</h3>
-        <p style="font-size: 0.8rem; color: var(--slate-500); margin-bottom: 1.25rem;">Direct buyers to your WhatsApp number.</p>
+    <div class="nav-user-controls">
+        <span class="user-greeting" id="sellerGreeting">Welcome, Seller</span>
+        <a href="marketplace.html" class="btn-outline-sm"><i class="fa-solid fa-eye"></i> View Marketplace</a>
+        <button onclick="handleLogout()" class="btn-outline-sm"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+    </div>
+</header>
 
-        <form id="createListingForm" onsubmit="handleCreateListing(event)">
-            <div class="field-group">
-                <label>Product Title</label>
-                <div class="input-shell"><input type="text" id="title" required placeholder="e.g. Calculus 3rd Edition"></div>
+<!-- Main Workspace -->
+<main class="studio-container">
+
+    <!-- LEFT: List an Item / Stall Form -->
+    <div class="studio-card">
+        <div class="card-title-group">
+            <h2>List an Item or Gear</h2>
+            <p>Your listing will be verified by administration before appearing in the public feed.</p>
+        </div>
+
+        <form id="sellerListingForm" onsubmit="handleCreateListing(event)">
+
+            <!-- Product Title -->
+            <div class="form-group">
+                <label for="itemTitle">Item Title / Product Name *</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-tag input-icon"></i>
+                    <input type="text" id="itemTitle" required placeholder="e.g. Calculus: Early Transcendentals (8th Ed) or HP Envy Laptop" oninput="updateWhatsAppPreview()">
+                </div>
             </div>
 
-            <div class="field-group">
-                <label>Price (ZAR)</label>
-                <div class="input-shell"><input type="number" id="price" required step="0.01" placeholder="e.g. 250"></div>
+            <!-- 2 Column: Category & Price -->
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label for="itemCategory">Category *</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-layer-group input-icon"></i>
+                        <select id="itemCategory" required>
+                            <option value="Textbooks & Notes">Textbooks & Notes</option>
+                            <option value="Electronics & Laptops">Electronics & Laptops</option>
+                            <option value="Study Gear & Calculators">Study Gear & Calculators</option>
+                            <option value="Uniforms & Lab Coats">Uniforms & Lab Coats</option>
+                            <option value="Campus Stalls & Services">Campus Stalls & Services</option>
+                            <option value="General Essentials">General Essentials</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-arrow"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemPrice">Price in ZAR (R) *</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-coins input-icon"></i>
+                        <input type="number" id="itemPrice" required step="0.50" min="0" placeholder="e.g. 350.00" oninput="updateWhatsAppPreview()">
+                    </div>
+                </div>
             </div>
 
-            <div class="field-group">
-                <label>Campus Location</label>
-                <div class="input-shell"><input type="text" id="location" required placeholder="e.g. District Six / Bellville"></div>
+            <!-- 2 Column: Size/Format & Condition -->
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label for="itemVariant">Size / Edition / Format</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-ruler-combined input-icon"></i>
+                        <input type="text" id="itemVariant" placeholder="e.g. Hardcover, Size M, 16GB RAM">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemCondition">Item Condition *</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-circle-check input-icon"></i>
+                        <select id="itemCondition" required>
+                            <option value="Like New (Unmarked)">Like New (Unmarked)</option>
+                            <option value="Good Condition (Light Wear)">Good Condition (Light Wear)</option>
+                            <option value="Fair / Usable">Fair / Usable</option>
+                            <option value="Brand New (In Box / Sealed)">Brand New (In Box / Sealed)</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-arrow"></i>
+                    </div>
+                </div>
             </div>
 
-            <div class="field-group">
-                <label>WhatsApp Contact Number</label>
-                <div class="input-shell"><input type="tel" id="contactInfo" required placeholder="e.g. 0821234567"></div>
+            <!-- Delivery & Handover Options -->
+            <div class="form-group">
+                <label>Fulfillment & Delivery Options *</label>
+                <div class="checkbox-grid">
+                    <label class="checkbox-pill">
+                        <input type="checkbox" id="optCollect" checked>
+                        <span class="checkbox-pill-text"><i class="fa-solid fa-handshake"></i> Campus Collection / Meetup</span>
+                    </label>
+                    <label class="checkbox-pill">
+                        <input type="checkbox" id="optCourier" checked>
+                        <span class="checkbox-pill-text"><i class="fa-solid fa-truck-fast"></i> Courier (Paxi / PostNet / PEP)</span>
+                    </label>
+                </div>
             </div>
 
-            <div class="field-group">
-                <label>Description</label>
-                <div class="input-shell"><textarea id="description" rows="3" style="width: 100%; border: 1.5px solid var(--slate-200); border-radius: 10px; padding: 10px; font-family: inherit; outline: none;"></textarea></div>
+            <!-- Campus Location / Meetup Spot -->
+            <div class="form-group">
+                <label for="itemLocation">Campus Handover Location *</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-location-dot input-icon"></i>
+                    <input type="text" id="itemLocation" required placeholder="e.g. District Six Campus, Library Foyer, Bellville South">
+                </div>
             </div>
 
-            <div class="field-group">
-                <label>Product Image</label>
-                <input type="file" id="imageFile" accept="image/*">
+            <!-- WhatsApp Number Direct Contact -->
+            <div class="form-group">
+                <label for="sellerWhatsApp">Your WhatsApp Contact Number *</label>
+                <div class="input-wrapper">
+                    <i class="fa-brands fa-whatsapp input-icon"></i>
+                    <input type="tel" id="sellerWhatsApp" required placeholder="e.g. 0821234567 or +27821234567" oninput="updateWhatsAppPreview()">
+                </div>
             </div>
 
-            <button type="submit" id="saveBtn" class="primary-btn">Submit for Review</button>
+            <!-- Item Description -->
+            <div class="form-group">
+                <label for="itemDescription">Detailed Description</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-align-left input-icon" style="top: 14px;"></i>
+                    <textarea id="itemDescription" rows="3" placeholder="Highlight key features, module codes (e.g. PRT300S), scratches, or packaging included."></textarea>
+                </div>
+            </div>
+
+            <!-- Drag & Drop Multi-Image Uploader -->
+            <div class="form-group">
+                <label>Upload Item Pictures (Max 3)</label>
+                <div class="upload-zone" id="dropArea">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <h4>Click to browse or drag photos here</h4>
+                    <p>PNG, JPG, or WEBP up to 5MB each</p>
+                    <input type="file" id="filePicker" accept="image/*" multiple onchange="handleFileSelection(event)">
+                </div>
+                <!-- Preview container -->
+                <div class="preview-strip" id="previewContainer"></div>
+            </div>
+
+            <!-- WhatsApp Live Message Preview Card -->
+            <div class="wa-preview-card">
+                <i class="fa-brands fa-whatsapp wa-icon-large"></i>
+                <div class="wa-preview-text" style="flex: 1;">
+                    <h4>Instant WhatsApp Connection Active</h4>
+                    <p>When buyers click <strong>"Chat with Seller"</strong>, they will be sent to your WhatsApp with this pre-filled message:</p>
+                    <span class="wa-preview-link" id="waMessagePreview">Please type a title and price to preview message...</span>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitListingBtn" class="btn-submit-listing">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span id="btnSubmitText">Submit Listing for Review</span>
+            </button>
+
+            <div id="listingFeedback" class="alert-box hidden" style="margin-top: 1.25rem;"></div>
         </form>
     </div>
 
-    <!-- Right: Manage My Listings -->
-    <div>
-        <h3 style="margin-bottom: 0.25rem;">My Listed Products</h3>
-        <p style="font-size: 0.8rem; color: var(--slate-500); margin-bottom: 1.25rem;">Listings stay PENDING until approved by an admin.</p>
-        <div id="sellerListings">Loading your items...</div>
+    <!-- RIGHT: Seller Inventory & Live Status -->
+    <div class="studio-card">
+        <div class="card-title-group">
+            <h2>Your Storefront & Listings</h2>
+            <p>Track your submitted products, moderation approvals, and direct WhatsApp links.</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-row">
+            <div class="stat-chip">
+                <div class="stat-num" id="statTotal">0</div>
+                <div class="stat-lbl">Total Listed</div>
+            </div>
+            <div class="stat-chip">
+                <div class="stat-num" id="statPending" style="color: #b45309;">0</div>
+                <div class="stat-lbl">Pending Review</div>
+            </div>
+            <div class="stat-chip">
+                <div class="stat-num" id="statApproved" style="color: #047857;">0</div>
+                <div class="stat-lbl">Live on Feed</div>
+            </div>
+        </div>
+
+        <!-- Inventory Feed List -->
+        <div class="inventory-list" id="inventoryContainer">
+            <div style="text-align: center; color: var(--slate-400); padding: 2rem 1rem;">
+                <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+                <p>Loading your inventory...</p>
+            </div>
+        </div>
     </div>
-</div>
+
+</main>
 
 <script>
+    /* ==========================================================================
+       1. AUTHENTICATION SHIELD & INITIALIZATION
+       ========================================================================== */
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     const loginAs = localStorage.getItem("loginAs");
 
-    if (!token || loginAs !== "SELLER") {
-      alert("Seller access required. Please log in as a seller.");
-      window.location.href = "index.html";
+    // Auto-fill seller name
+    if (user && user.fullName) {
+      document.getElementById("sellerGreeting").textContent = `Hi, ${user.fullName}`;
     }
 
-    async function loadMyListings() {
-      const container = document.getElementById("sellerListings");
+    // Default WhatsApp pre-fill from user profile if stored
+    if (user && user.contactInfo) {
+      document.getElementById("sellerWhatsApp").value = user.contactInfo;
+    }
+
+    /* ==========================================================================
+       2. WHATSAPP LIVE URL PREVIEW GENERATOR
+       ========================================================================== */
+    function updateWhatsAppPreview() {
+      const title = document.getElementById("itemTitle").value.trim() || "[Item Title]";
+      const price = document.getElementById("itemPrice").value.trim() || "0.00";
+      const rawPhone = document.getElementById("sellerWhatsApp").value.trim().replace(/[^0-9]/g, "");
+
+      const textMsg = `Hi ${user.fullName || 'Seller'}, I saw your listing for "${title}" priced at R${price} on CampusMarket. Is it still available?`;
+      const encodedMsg = encodeURIComponent(textMsg);
+      const link = `https://wa.me/${rawPhone || '27XXXXXXXXX'}?text=${encodedMsg}`;
+
+      document.getElementById("waMessagePreview").textContent = link;
+    }
+
+    /* ==========================================================================
+       3. CLIENT-SIDE IMAGE DRAG & DROP WITH PREVIEW THUMBNAILS
+       ========================================================================== */
+    let selectedFiles = [];
+
+    function handleFileSelection(e) {
+      const files = Array.from(e.target.files);
+      if (selectedFiles.length + files.length > 3) {
+        alert("You can upload a maximum of 3 images per listing.");
+        return;
+      }
+
+      files.forEach(f => selectedFiles.push(f));
+      renderThumbnails();
+    }
+
+    function renderThumbnails() {
+      const container = document.getElementById("previewContainer");
+      container.innerHTML = "";
+
+      selectedFiles.forEach((file, index) => {
+        const thumb = document.createElement("div");
+        thumb.className = "thumb-box";
+
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(file);
+
+        const rmBtn = document.createElement("button");
+        rmBtn.className = "thumb-remove-btn";
+        rmBtn.innerHTML = "<i class='fa-solid fa-xmark'></i>";
+        rmBtn.onclick = (e) => {
+          e.preventDefault();
+          selectedFiles.splice(index, 1);
+          renderThumbnails();
+        };
+
+        thumb.appendChild(img);
+        thumb.appendChild(rmBtn);
+        container.appendChild(thumb);
+      });
+    }
+
+    /* ==========================================================================
+       4. LOAD SELLER'S LIVE INVENTORY & UPDATE METRICS
+       ========================================================================== */
+    async function loadSellerInventory() {
+      const container = document.getElementById("inventoryContainer");
+
+      // Fallback demo items if working locally without database seed
       try {
-        const res = await fetch(`http://localhost:8080/api/listings/seller/${user.id}`, {
-          headers: { "Authorization": `Bearer ${token}` }
+        const sellerId = user.id || 1;
+        const res = await fetch(`http://localhost:8080/api/listings/seller/${sellerId}`, {
+          headers: token ? { "Authorization": `Bearer ${token}` } : {}
         });
+
+        if (!res.ok) throw new Error("Could not fetch seller products");
         const items = await res.json();
+
+        // Calculate Stats
+        document.getElementById("statTotal").textContent = items.length;
+        document.getElementById("statPending").textContent = items.filter(i => i.status === "PENDING").length;
+        document.getElementById("statApproved").textContent = items.filter(i => i.status === "APPROVED").length;
+
         container.innerHTML = "";
 
         if (items.length === 0) {
-          container.innerHTML = `<p style="color: var(--slate-400); font-size: 0.9rem;">You haven't listed any products yet.</p>`;
+          container.innerHTML = `
+            <div style="text-align: center; color: var(--slate-400); padding: 3rem 1rem;">
+              <i class="fa-solid fa-box-open" style="font-size: 2.2rem; margin-bottom: 0.75rem; color: var(--slate-300);"></i>
+              <p style="font-weight: 600;">No items listed yet.</p>
+              <p style="font-size: 0.8rem; margin-top: 4px;">Fill out the form on the left to add your first product!</p>
+            </div>
+          `;
           return;
         }
 
         items.forEach(item => {
+          const cleanPhone = (item.contactInfo || "").replace(/[^0-9]/g, "");
+          const waLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(`Hi, inquiring about your listing: ${item.title}`)}`;
+          const imgUrl = (item.imageUrls && item.imageUrls.length > 0) ? item.imageUrls[0] : "";
+
           const row = document.createElement("div");
-          row.className = "item-row";
+          row.className = "inventory-item";
           row.innerHTML = `
-            <div>
-              <div style="font-weight: 700; font-size: 0.95rem;">${item.title}</div>
-              <div style="color: var(--slate-500); font-size: 0.8rem;">R${item.price} • ${item.location}</div>
+            <div class="item-media">
+              ${imgUrl ? `<img src="${imgUrl}" alt="${item.title}">` : `<i class="fa-solid fa-image" style="color: var(--slate-400);"></i>`}
             </div>
-            <span class="status-badge status-${item.status}">${item.status}</span>
+            <div class="item-details">
+              <h4>${item.title}</h4>
+              <div class="item-meta">
+                <strong>R${item.price}</strong> • <i class="fa-solid fa-location-dot"></i> ${item.location || 'Campus'}
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="badge-status status-${item.status}">${item.status}</span>
+              <a href="${waLink}" target="_blank" class="btn-wa-test" title="Test WhatsApp Contact Link">
+                <i class="fa-brands fa-whatsapp"></i>
+              </a>
+            </div>
           `;
           container.appendChild(row);
         });
+
       } catch (err) {
-        container.textContent = "Failed to load seller listings.";
+        container.innerHTML = `
+          <div style="text-align: center; color: var(--slate-400); padding: 2rem 1rem;">
+            <p style="font-size: 0.85rem;">Connect to backend to see live items.</p>
+          </div>
+        `;
       }
     }
 
+    /* ==========================================================================
+       5. SUBMIT LISTING HANDLER
+       ========================================================================== */
     async function handleCreateListing(e) {
       e.preventDefault();
-      const saveBtn = document.getElementById("saveBtn");
-      saveBtn.disabled = true;
-      saveBtn.textContent = "Uploading...";
+
+      const feedback = document.getElementById("listingFeedback");
+      const submitBtn = document.getElementById("submitListingBtn");
+      const btnText = document.getElementById("btnSubmitText");
+
+      feedback.className = "alert-box hidden";
+      submitBtn.disabled = true;
+      btnText.textContent = "Processing & Uploading...";
 
       try {
-        let uploadedImageUrls = [];
-        const fileInput = document.getElementById("imageFile");
+        let uploadedUrls = [];
 
-        if (fileInput.files.length > 0) {
+        // 1. Upload attached pictures via /api/upload
+        for (const file of selectedFiles) {
           const formData = new FormData();
-          formData.append("file", fileInput.files[0]);
+          formData.append("file", file);
 
-          const uploadRes = await fetch("http://localhost:8080/api/upload", {
+          const upRes = await fetch("http://localhost:8080/api/upload", {
             method: "POST",
+            headers: token ? { "Authorization": `Bearer ${token}` } : {},
             body: formData
           });
-          if (!uploadRes.ok) throw new Error("Image upload failed");
-          const imgUrl = await uploadRes.text();
-          uploadedImageUrls.push(imgUrl);
+
+          if (upRes.ok) {
+            const url = await upRes.text();
+            uploadedUrls.push(url);
+          }
         }
 
+        // 2. Build full metadata payload (including Size, Condition, Delivery)
+        const fulfills = [];
+        if (document.getElementById("optCollect").checked) fulfills.push("Campus Meetup");
+        if (document.getElementById("optCourier").checked) fulfills.push("Courier Available");
+
+        const rawDesc = document.getElementById("itemDescription").value.trim();
+        const variant = document.getElementById("itemVariant").value.trim();
+        const condition = document.getElementById("itemCondition").value;
+        const category = document.getElementById("itemCategory").value;
+
+        // Structured description appending specs cleanly
+        const fullDescription = `${rawDesc}\n\n[Category: ${category} | Variant: ${variant || 'Standard'} | Condition: ${condition} | Delivery: ${fulfills.join(', ')}]`;
+
         const payload = {
-          title: document.getElementById("title").value,
-          description: document.getElementById("description").value,
-          price: parseFloat(document.getElementById("price").value),
-          location: document.getElementById("location").value,
-          contactInfo: document.getElementById("contactInfo").value,
-          imageUrls: uploadedImageUrls
+          title: document.getElementById("itemTitle").value.trim(),
+          description: fullDescription,
+          price: parseFloat(document.getElementById("itemPrice").value),
+          location: document.getElementById("itemLocation").value.trim(),
+          contactInfo: document.getElementById("sellerWhatsApp").value.trim(),
+          imageUrls: uploadedUrls
         };
 
+        // 3. Post to backend
         const res = await fetch("http://localhost:8080/api/listings", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            ...(token ? { "Authorization": `Bearer ${token}` } : {})
           },
           body: JSON.stringify(payload)
         });
 
-        if (!res.ok) throw new Error("Could not save listing");
+        if (!res.ok) throw new Error("Failed to save product listing. Please check your connection.");
 
-        alert("Listing submitted! It is now pending admin review.");
-        document.getElementById("createListingForm").reset();
-        loadMyListings();
+        // Success state
+        feedback.textContent = "Listing submitted successfully! It is now pending administrator review.";
+        feedback.className = "alert-box success";
+
+        // Reset Form
+        document.getElementById("sellerListingForm").reset();
+        selectedFiles = [];
+        renderThumbnails();
+        updateWhatsAppPreview();
+        loadSellerInventory();
+
       } catch (err) {
-        alert(err.message);
+        feedback.textContent = err.message;
+        feedback.className = "alert-box error";
       } finally {
-        saveBtn.disabled = false;
-        saveBtn.textContent = "Submit for Review";
+        submitBtn.disabled = false;
+        btnText.textContent = "Submit Listing for Review";
       }
     }
 
-    function logout() {
+    function handleLogout() {
       localStorage.clear();
       window.location.href = "index.html";
     }
 
-    loadMyListings();
+    // Initialize on page load
+    updateWhatsAppPreview();
+    loadSellerInventory();
 </script>
 </body>
 </html>
