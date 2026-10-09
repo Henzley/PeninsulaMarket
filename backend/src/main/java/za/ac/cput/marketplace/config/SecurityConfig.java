@@ -31,6 +31,7 @@ public class SecurityConfig {
                                 "/images/**",
                                 "/api/auth/**",
                                 "/api/listings/**",
+                                "/api/messages/**",
                                 "/api/admin/**"
                         ).permitAll()
                         .anyRequest().authenticated()
