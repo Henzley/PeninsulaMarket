@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marketplace | Create Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Static Hero Background matching the exact image */
+        .static-hero-bg {
+          position: absolute;
+          inset: 0;
+          background: #081122 url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+          z-index: 0;
+        }
+
+        .static-hero-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(8, 17, 34, 0.90) 0%, rgba(8, 17, 34, 0.95) 100%);
+          z-index: 1;
+        }
+
+        /* Custom Select dropdown matching the image */
+        .select-shell {
+          position: relative;
+          display: flex;
+          align-items: center;
+          width: 100%;
+        }
+        .select-shell select {
+          width: 100%;
+          padding: 11px 38px 11px 40px;
+          border: 1px solid var(--slate-200);
+          border-radius: 10px;
+          font-size: 0.88rem;
+          font-weight: 500;
+          color: var(--slate-900);
+          background-color: var(--white);
+          appearance: none;
+          outline: none;
+          cursor: pointer;
+          transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .select-shell select:focus {
+          border-color: var(--primary);
+          box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+        }
+        .select-arrow {
+          position: absolute;
+          right: 14px;
+          color: var(--slate-400);
+          pointer-events: none;
+          font-size: 0.82rem;
+        }
+    </style>
+    <link rel="stylesheet" href="css/site-theme.css">
+</head>
+<body>
+
+<!-- Top Navigation Bar -->
+<header class="site-header">
+    <div class="header-container">
+        <a href="index.html" class="brand-link">
+            <span class="brand-text-main">Student <span class="brand-text-accent">Marketplace</span></span>
+        </a>
+
+        <nav class="nav-menu">
+            <a href="index.html" class="nav-item">Home</a>
+            <a href="marketplace.html" class="nav-item">Browse Deals</a>
+            <a href="seller.html" class="nav-item">Sell Item</a>
+            <a href="index.html#about" class="nav-item">About Us</a>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="index.html" class="btn-text">Login</a>
+            <a href="register.html" class="btn-primary-pill">Join Now</a>
+        </div>
+    </div>
+</header>
+
+<!-- Page Body & Floating Card -->
+<main class="page-body">
+    <div class="card-modal">
+
+        <!-- Left Hero Section (Static Dark Panel matching the image) -->
+        <section class="modal-hero">
+            <div class="static-hero-bg"></div>
+            <div class="static-hero-overlay"></div>
+
+            <div class="hero-content">
+                <div class="market-badge">
+                    <span>GET STARTED</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Find your next campus essential.
+                </h1>
+
+                <p class="hero-description">
+                    Buy, sell and connect with students around your campus. Set up your free marketplace account to get started.
+                </p>
+            </div>
+
+            <!-- Spacer for structural balance -->
+            <div></div>
+        </section>
+
+        <!-- Right Form Area -->
+        <section class="modal-form-area">
+            <div class="form-inner">
+
+                <div class="form-heading">
+                    <h2>Create Your Account</h2>
+                    <p id="formRoleSub">Register as a Vendor or an Event Organizer/Admin.</p>
+                </div>
+
+                <form id="registerForm" onsubmit="handleRegistration(event)" autocomplete="off">
+
+                    <!-- "I want to register as" Dropdown -->
+                    <div class="field-block">
+                        <label for="roleSelect">I want to register as</label>
+                        <div class="select-shell">
+                            <i class="fa-solid fa-user-group input-icon"></i>
+                            <select id="roleSelect" onchange="onRoleChange(this.value)">
+                                <option value="SELLER">Vendor (Trader / Stallholder)</option>
+                                <option value="BUYER">Buyer (Explore & Shop Deals)</option>
+                                <option value="ADMIN">Event Organizer / Admin</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down select-arrow"></i>
+                        </div>
+                    </div>
+
+                    <!-- Full Name -->
+                    <div class="field-block">
+                        <label for="fullName">Full Name</label>
+                        <div class="input-shell">
+                            <i class="fa-regular fa-user input-icon"></i>
+                            <input type="text" id="fullName" required placeholder="Full Name">
+                        </div>
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="field-block">
+                        <label for="email">Email Address</label>
+                        <div class="input-shell">
+                            <i class="fa-regular fa-envelope input-icon"></i>
+                            <input type="email" id="email" required placeholder="Email Address">
+                        </div>
+                    </div>
+
+                    <!-- Business / Brand Name -->
+                    <div class="field-block" id="businessBlock">
+                        <label for="businessName">Business Name</label>
+                        <div class="input-shell">
+                            <i class="fa-solid fa-briefcase input-icon"></i>
+                            <input type="text" id="businessName" placeholder="Business or Brand Name">
+                        </div>
+                    </div>
+
+                    <!-- Server-configured admin bootstrap key -->
+                    <div class="field-block hidden" id="adminPasscodeBlock">
+                        <label for="adminKey">Admin Registration Key</label>
+                        <div class="input-shell">
+                            <i class="fa-solid fa-key input-icon"></i>
+                            <input type="password" id="adminKey" placeholder="Enter the key supplied by the server administrator">
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="field-block">
+                        <label for="password">Password</label>
+                        <div class="input-shell">
+                            <i class="fa-solid fa-lock input-icon"></i>
+                            <input type="password" id="password" required placeholder="Password (Min 8 characters)">
+                            <button type="button" class="btn-toggle-eye" onclick="togglePasswordVisibility('password', this)" aria-label="Toggle password view">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Full-width Action Button -->
+                    <button type="submit" id="submitBtn" class="btn-submit" style="margin-top: 1.25rem;">
+                        <span id="btnText">Create Account</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="switch-prompt">
+                    <span>Already have an account?</span>
+                    <a href="index.html">Login here</a>
+                </div>
+
+                <div id="registerAlert" class="alert-box hidden"></div>
+
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<script>
+    const API_BASE = `${window.location.protocol}//${window.location.hostname}:8080/api`;
+    let currentRole = "SELLER";
+
+    function onRoleChange(role) {
+      currentRole = role;
+      const adminBlock = document.getElementById("adminPasscodeBlock");
+      const businessBlock = document.getElementById("businessBlock");
+      const formRoleSub = document.getElementById("formRoleSub");
+
+      if (role === "SELLER") {
+        adminBlock.classList.add("hidden");
+        businessBlock.classList.remove("hidden");
+        formRoleSub.textContent = "Register as a Vendor or Stallholder.";
+      } else if (role === "BUYER") {
+        adminBlock.classList.add("hidden");
+        businessBlock.classList.add("hidden");
+        formRoleSub.textContent = "Register as a Buyer to browse and reserve stalls.";
+      } else if (role === "ADMIN") {
+        adminBlock.classList.remove("hidden");
+        businessBlock.classList.add("hidden");
+        formRoleSub.textContent = "Register as an Event Organizer or Administrator.";
+      }
+    }
+
+    function togglePasswordVisibility(fieldId, btn) {
+      const input = document.getElementById(fieldId);
+      const icon = btn.querySelector("i");
+      if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+      } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+    }
+
+    async function handleRegistration(e) {
+      e.preventDefault();
+
+      const alertBox = document.getElementById("registerAlert");
+      const submitBtn = document.getElementById("submitBtn");
+      const btnText = document.getElementById("btnText");
+
+      alertBox.className = "alert-box hidden";
+
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const password = document.getElementById("password").value;
+      const businessName = document.getElementById("businessName") ? document.getElementById("businessName").value.trim() : "";
+      const adminKey = document.getElementById("adminKey").value.trim();
+
+      if (password.length < 8) {
+        showAlert("Password must be at least 8 characters long.", "error");
+        return;
+      }
+
+      if (currentRole === "ADMIN" && !adminKey) {
+        showAlert("Enter the admin registration key supplied by the server administrator.", "error");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      btnText.textContent = "Creating Account...";
+
+      try {
+        const headers = { "Content-Type": "application/json" };
+        const endpoint = currentRole === "ADMIN"
+          ? `${API_BASE}/auth/register-admin`
+          : `${API_BASE}/auth/register`;
+        if (currentRole === "ADMIN") {
+          headers["X-Admin-Registration-Key"] = adminKey;
+        }
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers,
+          body: JSON.stringify({
+            fullName: fullName,
+            email: email,
+            password: password,
+            contactInfo: businessName
+          })
+        });
+
+        const responseText = await response.text();
+        let responseData = null;
+        if (responseText) {
+          try {
+            responseData = JSON.parse(responseText);
+          } catch {
+            responseData = null;
+          }
+        }
+
+        if (!response.ok) {
+          const message = responseData && typeof responseData === "object"
+            ? responseData.error
+            : responseText;
+          throw new Error(message || `Registration failed (HTTP ${response.status}). Check that the backend is running.`);
+        }
+
+        showAlert("Account created successfully! Redirecting to login...", "success");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1500);
+
+      } catch (err) {
+        showAlert(err.message, "error");
+      } finally {
+        submitBtn.disabled = false;
+        btnText.textContent = "Create Account";
+      }
+    }
+
+    function showAlert(msg, type) {
+      const alertBox = document.getElementById("registerAlert");
+      alertBox.textContent = msg;
+      alertBox.className = `alert-box ${type}`;
+    }
+</script>
+</body>
+</html>

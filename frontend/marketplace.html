@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f7f2">
+  <title>Student Marketplace | Browse</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/marketplace.css">
+  <link rel="stylesheet" href="css/site-theme.css">
+  <script src="js/marketplace.js" defer></script>
+</head>
+<body>
+  <header class="market-nav">
+    <a class="market-brand" href="index.html" aria-label="Student Marketplace home">
+      <span class="brand-mark"><i class="fa-solid fa-leaf" aria-hidden="true"></i></span>
+      <span>Student <strong>Marketplace</strong></span>
+    </a>
+    <nav class="market-nav-links" aria-label="Main navigation">
+      <a class="current" href="marketplace.html">Browse</a>
+      <a href="seller.html">Sell an item</a>
+    </nav>
+    <div class="market-nav-actions">
+      <a class="market-signin" href="index.html">Sign in</a>
+      <a class="market-join" href="register.html">Join the market <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </header>
+
+  <main class="market-main">
+    <section class="market-hero">
+      <div class="market-hero-copy">
+        <span class="market-kicker"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> MADE FOR CAMPUS LIFE</span>
+        <h1>Good finds.<br><span>Good neighbours.</span></h1>
+        <p>Find useful things from students nearby, or give your pre-loved gear a new home.</p>
+      </div>
+      <div class="market-hero-art" aria-hidden="true">
+        <span class="art-sun"></span>
+        <span class="art-book"><i class="fa-solid fa-book-open"></i></span>
+        <span class="art-caption">A little more<br>local, a lot more useful.</span>
+      </div>
+      <div class="market-search">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="search" id="listingSearch" placeholder="Search books, tech, study gear..." aria-label="Search listings">
+        <button id="clearSearch" type="button" aria-label="Clear search" title="Clear search"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </section>
+
+    <section class="market-results" aria-labelledby="listingHeading">
+      <div class="results-heading">
+        <div>
+          <p class="market-eyebrow">THE CAMPUS FINDS</p>
+          <h2 id="listingHeading">Browse the marketplace</h2>
+        </div>
+        <button class="refresh-listings" id="refreshListings" type="button"><i class="fa-solid fa-rotate" aria-hidden="true"></i> Refresh</button>
+      </div>
+
+      <div class="market-filters" role="group" aria-label="Filter listings by type">
+        <button type="button" class="market-filter active" data-category="all">Everything</button>
+        <button type="button" class="market-filter" data-category="books">Books &amp; notes</button>
+        <button type="button" class="market-filter" data-category="electronics">Electronics</button>
+        <button type="button" class="market-filter" data-category="study">Study gear</button>
+        <button type="button" class="market-filter" data-category="other">Other finds</button>
+      </div>
+
+      <p class="results-count" id="resultsCount" aria-live="polite"></p>
+      <div class="product-grid" id="productGrid" aria-live="polite">
+        <p class="market-message">Loading approved listings…</p>
+      </div>
+    </section>
+
+    <section class="seller-callout">
+      <div class="callout-icon"><i class="fa-solid fa-repeat" aria-hidden="true"></i></div>
+      <div>
+        <p class="market-eyebrow">HAVE SOMETHING TO PASS ON?</p>
+        <h2>Your next buyer is on campus.</h2>
+        <p>Post a listing for free. Once it is approved, students can contact you directly.</p>
+      </div>
+      <a href="seller.html">List an item <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    </section>
+  </main>
+
+  <footer class="market-footer">
+    <a class="market-brand" href="index.html"><span class="brand-mark"><i class="fa-solid fa-leaf" aria-hidden="true"></i></span><span>Student <strong>Marketplace</strong></span></a>
+    <span>Built for student life. Buy nearby, sell thoughtfully.</span>
+  </footer>
+</body>
+</html>
