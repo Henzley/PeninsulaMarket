@@ -23,6 +23,7 @@ public class SecurityConfig {
                                 "/index.html",
                                 "/register.html",
                                 "/marketplace.html",
+                                "/messages.html",
                                 "/seller.html",
                                 "/admin.html",
                                 "/admin-users.html",
@@ -31,6 +32,7 @@ public class SecurityConfig {
                                 "/images/**",
                                 "/api/auth/**",
                                 "/api/listings/**",
+                                "/api/messages/**",
                                 "/api/admin/**"
                         ).permitAll()
                         .anyRequest().authenticated()
