@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Marketplace | Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/site-theme.css">
+  <script src="js/admin.js" defer></script>
+</head>
+<body data-admin-page="dashboard">
+  <header class="admin-nav">
+    <a class="brand-logo" href="admin.html">Student <span>Marketplace</span><span class="admin-tag">Admin</span></a>
+    <nav class="admin-links" aria-label="Admin navigation">
+      <a class="active" href="admin.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+      <a href="admin-users.html"><i class="fa-solid fa-users"></i> Users</a>
+      <a href="marketplace.html"><i class="fa-solid fa-store"></i> Marketplace</a>
+    </nav>
+    <button class="button button-outline" type="button" data-logout><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</button>
+  </header>
+
+  <main class="admin-container">
+    <section class="page-heading">
+      <div>
+        <p class="eyebrow">ADMINISTRATION</p>
+        <h1>Dashboard</h1>
+        <p class="muted">Marketplace activity and listing moderation.</p>
+      </div>
+      <button class="button button-outline" type="button" id="refreshDashboard"><i class="fa-solid fa-rotate"></i> Refresh</button>
+    </section>
+
+    <div class="notice hidden" id="pageNotice" role="alert"></div>
+
+    <section class="metrics" aria-label="Marketplace statistics">
+      <article class="metric-card"><span class="metric-icon blue"><i class="fa-solid fa-users"></i></span><p class="metric-label">Total users</p><strong id="metricUsers">—</strong></article>
+      <article class="metric-card"><span class="metric-icon purple"><i class="fa-solid fa-store"></i></span><p class="metric-label">Total listings</p><strong id="metricTotal">—</strong></article>
+      <article class="metric-card"><span class="metric-icon orange"><i class="fa-solid fa-clock"></i></span><p class="metric-label">Awaiting review</p><strong id="metricPending">—</strong></article>
+      <article class="metric-card"><span class="metric-icon green"><i class="fa-solid fa-circle-check"></i></span><p class="metric-label">Approved</p><strong id="metricApproved">—</strong></article>
+      <article class="metric-card"><span class="metric-icon red"><i class="fa-solid fa-circle-xmark"></i></span><p class="metric-label">Rejected</p><strong id="metricRejected">—</strong></article>
+    </section>
+
+    <section class="panel" id="moderation">
+      <div class="panel-heading">
+        <div>
+          <h2>Listing moderation</h2>
+          <p class="muted">Review seller submissions before they appear in the marketplace.</p>
+        </div>
+        <div class="filter-tabs" role="group" aria-label="Filter listings">
+          <button class="tab-button active" type="button" data-listing-filter="PENDING">Pending</button>
+          <button class="tab-button" type="button" data-listing-filter="ALL">All listings</button>
+        </div>
+      </div>
+      <div id="listingQueue" class="listing-queue" aria-live="polite">
+        <p class="empty-state">Loading listings…</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
