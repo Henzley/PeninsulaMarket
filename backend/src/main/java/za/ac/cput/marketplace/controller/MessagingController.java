@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.transaction.annotation.Transactional;
 import za.ac.cput.marketplace.domain.Conversation;
 import za.ac.cput.marketplace.domain.DirectMessage;
 import za.ac.cput.marketplace.domain.User;
@@ -16,6 +17,7 @@ import java.time.Instant;
 import java.util.List;
 
 @RestController
+@Transactional
 @RequestMapping("/api/messages")
 @CrossOrigin(origins = "*")
 public class MessagingController {
