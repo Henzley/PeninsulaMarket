@@ -9,7 +9,7 @@ Campus student marketplace group project.
 - `backend/` contains the Spring Boot API, database configuration, and tests.
 - `backend/src/main/resources/` contains Spring Boot configuration. The website source remains in `frontend/`.
 
-## Running locally
+## Buyer and seller messaging\n\nBuyers can select **Message seller** on an approved listing to open a private, listing-specific conversation. Buyers and sellers can exchange messages, see conversation history, and track unread messages. Conversations and messages are stored in the existing MySQL database; Hibernate creates the `conversations` and `direct_messages` tables on startup. Only the two participants can read or send messages in a conversation. Messaging is available from `messages.html` after signing in as a buyer or seller.\n\n## Running locally
 
 Run the backend from one terminal:
 

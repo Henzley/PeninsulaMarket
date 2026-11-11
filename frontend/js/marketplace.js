@@ -94,21 +94,29 @@ function makeProductCard(listing) {
   location.append(locationIcon, document.createTextNode(listing.location || "Campus"));
   meta.append(seller, location);
 
-  const phone = normalizePhone(listing.contactInfo);
+  const token = localStorage.getItem("token");
+  const loginAs = (localStorage.getItem("loginAs") || "").toUpperCase();
   const contact = document.createElement("a");
-  contact.className = phone ? "product-contact" : "product-contact disabled";
-  if (phone) {
-    contact.href = `https://wa.me/${phone}?text=${encodeURIComponent(`Hi, I'm interested in "${listing.title || "your listing"}" on Student Marketplace.`)}`;
-    contact.target = "_blank";
-    contact.rel = "noopener noreferrer";
+  contact.className = "product-contact";
+  if (token && loginAs === "BUYER" && listing.seller?.id && Number(listing.seller.id) !== Number(JSON.parse(localStorage.getItem("user") || "{}").id)) {
+    contact.href = `messages.html?listingId=${encodeURIComponent(listing.id)}`;
+    const messageIcon = document.createElement("i");
+    messageIcon.className = "fa-regular fa-comments";
+    messageIcon.setAttribute("aria-hidden", "true");
+    contact.append(messageIcon, document.createTextNode("Message seller"));
+  } else if (!token) {
+    contact.href = "index.html";
+    const messageIcon = document.createElement("i");
+    messageIcon.className = "fa-regular fa-comments";
+    messageIcon.setAttribute("aria-hidden", "true");
+    contact.append(messageIcon, document.createTextNode("Sign in to message"));
   } else {
-    contact.href = "#";
-    contact.setAttribute("aria-disabled", "true");
+    contact.href = "messages.html";
+    const messageIcon = document.createElement("i");
+    messageIcon.className = "fa-regular fa-comments";
+    messageIcon.setAttribute("aria-hidden", "true");
+    contact.append(messageIcon, document.createTextNode(loginAs === "SELLER" ? "Open messages" : "Message seller"));
   }
-  const whatsappIcon = document.createElement("i");
-  whatsappIcon.className = "fa-brands fa-whatsapp";
-  whatsappIcon.setAttribute("aria-hidden", "true");
-  contact.append(whatsappIcon, document.createTextNode(phone ? "Contact seller" : "Contact unavailable"));
   content.append(price, title, description, meta, contact);
   card.append(imageBox, content);
   return { card, category, searchable: `${listing.title || ""} ${listing.description || ""} ${listing.location || ""} ${listing.seller?.fullName || ""}`.toLowerCase() };

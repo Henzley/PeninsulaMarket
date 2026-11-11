@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f2">
+  <title>Messages | Student Marketplace</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/marketplace.css">
+  <link rel="stylesheet" href="css/site-theme.css">
+  <link rel="stylesheet" href="css/messages.css">
+  <script src="js/messages.js" defer></script>
+</head>
+<body class="messages-page">
+  <header class="market-nav">
+    <a class="market-brand" href="marketplace.html"><span class="brand-mark"><i class="fa-solid fa-leaf"></i></span><span>Student <strong>Marketplace</strong></span></a>
+    <nav class="market-nav-links" aria-label="Main navigation">
+      <a href="marketplace.html">Browse</a><a href="seller.html">Sell an item</a><a class="current" href="messages.html">Messages</a>
+    </nav>
+    <div class="market-nav-actions"><span id="currentUserLabel" class="market-signin"></span><button id="signOutButton" class="message-signout" type="button">Sign out</button></div>
+  </header>
+
+  <main class="messages-main">
+    <div class="messages-heading"><div><p class="market-eyebrow">YOUR MARKETPLACE INBOX</p><h1>Messages</h1><p>Talk directly with the buyer or seller about a listing.</p></div><a href="marketplace.html" class="messages-back"><i class="fa-solid fa-arrow-left"></i> Browse listings</a></div>
+    <div id="pageNotice" class="message-notice" role="status" hidden></div>
+    <section class="messaging-layout" aria-label="Messaging inbox">
+      <aside class="conversation-panel">
+        <div class="conversation-panel-heading"><h2>Conversations</h2><button id="refreshConversations" type="button" title="Refresh conversations" aria-label="Refresh conversations"><i class="fa-solid fa-rotate"></i></button></div>
+        <div id="conversationList" class="conversation-list"><p class="inbox-empty">Loading conversations…</p></div>
+      </aside>
+      <section class="chat-panel" aria-label="Selected conversation">
+        <div id="chatPlaceholder" class="chat-placeholder"><span class="chat-placeholder-icon"><i class="fa-regular fa-comments"></i></span><h2>Your conversations, in one place</h2><p>Choose a conversation or start by contacting a seller from a listing.</p><a href="marketplace.html">Browse listings</a></div>
+        <div id="activeChat" class="active-chat" hidden>
+          <header class="chat-header"><div class="chat-avatar" id="chatAvatar">S</div><div class="chat-person"><h2 id="chatPersonName">Seller</h2><p id="chatListingTitle">Listing title</p></div><span class="chat-listing-price" id="chatListingPrice"></span></header>
+          <div id="messageHistory" class="message-history" aria-live="polite" aria-label="Message history"></div>
+          <form id="sendMessageForm" class="send-message-form"><label class="sr-only" for="messageInput">Write a message</label><textarea id="messageInput" rows="1" maxlength="2000" placeholder="Write a message…" required></textarea><button id="sendMessageButton" type="submit"><i class="fa-solid fa-paper-plane"></i><span>Send</span></button><p class="message-form-hint">Keep communication respectful. Maximum 2,000 characters.</p></form>
+        </div>
+      </section>
+    </section>
+  </main>
+</body>
+</html>
